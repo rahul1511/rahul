@@ -31,9 +31,14 @@ class Emp_modify(APIView):
     def get_object(self,id):
         #try to check the object is available in data base or not
         try:
-            return Emp.objects.get(id)
+            return Emp.objects.get(id=id)
         except:
-            return Response({"error":"object not found", status=status.HTTP_404_NOT_FOUND})
+            return Response({'error':'object not found'}, status=status.HTTP_404_NOT_FOUND)
+    # create a method to display in the browser
+    def get(self,request,id):
+        lst=self.get_object(id)
+        Slst=Emp_serializer(lst)
+        return Response(Slst.data)
     def put(self,request,id):
         lst=self.get_object(id)
         #serialize that element
@@ -41,7 +46,7 @@ class Emp_modify(APIView):
         # chect whethet the data modified is valid or not
         if Slst.is_valid():
             Slst.save()
-            return Response(Slst.data,ststus=status.HTTP_200_OK)
+            return Response(Slst.data,status=status.HTTP_200_OK)
         else:
             return Response(Slst.error,status=status.HTTP_404_BAD_REQUEST)
     # create another method to delete the data
@@ -49,7 +54,3 @@ class Emp_modify(APIView):
         lst=self.get_object(id)
         lst.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-        
-        
-                            
-            
