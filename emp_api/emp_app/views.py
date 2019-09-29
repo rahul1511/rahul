@@ -15,3 +15,15 @@ class Emplist(APIView):
         #take serialize object list based on serializers class
         Slst=Emp_serializer(lst,many=True)
         return Response(Slst.data)
+    # create push method to add the object in the databases
+    def push(self,request):
+        # request method will retrive the dta written in contact in browser
+        Slst=Emp_serializers(data=request.data)
+        if Slst.data.is_valid():
+            Slast.save()
+            return Response(Slst.data,status=status.HTTP_201_Ok)
+        else:
+            return Response(Slst.error, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        
