@@ -20,5 +20,6 @@ from emp_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/employee',views.Emplist.as_view())
+    path('api/employee',views.Emplist.as_view()),
+    path('api/employee_modify/<int:id>',views.Emp_modify.as_view()),
 ]
