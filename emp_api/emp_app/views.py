@@ -50,6 +50,7 @@ class Emp_modify(APIView):
         else:
             return Response(Slst.error,status=status.HTTP_404_BAD_REQUEST)
     # create another method to delete the data
+    
     def delete(self,request,id):
         lst=self.get_object(id)
         lst.delete()
